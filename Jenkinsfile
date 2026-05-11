@@ -20,11 +20,12 @@ pipeline {
         stage('Restart Flask app') {
             steps {
                 sh '''
-                    sudo pkill -f "python app.py" || true
+                    export JENKINS_NODE_COOKIE=dontKillMe
                     . venv/bin/activate
                     nohup python app.py > flask.log 2>&1 &
+                    echo $! > flask.pid
                 '''
-                sleep time: 50, unit: 'SECONDS'
+                sleep time: 5, unit: 'SECONDS'
             }
         }
     }

@@ -16,14 +16,6 @@ pipeline {
                 '''
             }
         }
-        stage('Run unit tests') {
-            steps {
-                sh '''
-                    . venv/bin/activate
-                    python -m pytest test_app.py -v --tb=short
-                '''
-            }
-        }
 
         stage('Restart Flask app') {
             steps {
@@ -37,6 +29,14 @@ pipeline {
                     . venv/bin/activate
                     nohup python app.py > flask.log 2>&1 &
                     echo $! > flask.pid
+                '''
+            }
+        }
+        stage('Run unit tests') {
+            steps {
+                sh '''
+                    . venv/bin/activate
+                    python -m pytest test_app.py -v --tb=short
                 '''
             }
         }

@@ -19,7 +19,7 @@ pipeline {
 
         stage('Restart Flask app') {
             steps {
-                sh '''!/bin/bash
+                sh '''
                     sudo pkill -f "python app.py" || true
                     . venv/bin/activate
                     nohup python app.py > flask.log 2>&1 &

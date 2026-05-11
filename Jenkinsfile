@@ -20,6 +20,11 @@ pipeline {
         stage('Restart Flask app') {
             steps {
                 sh '''
+                    # Essayer plusieurs patterns
+                    pkill -f "app.py" || true
+                    pkill -f "flask" || true
+                    # Attendre que le port soit libéré
+                    sleep 2
                     export JENKINS_NODE_COOKIE=dontKillMe
                     . venv/bin/activate
                     nohup python app.py > flask.log 2>&1 &

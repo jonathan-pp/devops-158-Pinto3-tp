@@ -24,6 +24,7 @@ pipeline {
                     . venv/bin/activate
                     nohup python app.py > flask.log 2>&1 &
                 '''
+                sleep time: 50, unit: 'SECONDS'
             }
         }
     }

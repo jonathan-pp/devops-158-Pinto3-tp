@@ -25,7 +25,6 @@ pipeline {
                     nohup python app.py > flask.log 2>&1 &
                     echo $! > flask.pid
                 '''
-                sleep time: 5, unit: 'SECONDS'
             }
         }
     }

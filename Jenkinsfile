@@ -16,6 +16,14 @@ pipeline {
                 '''
             }
         }
+        stage('Run unit tests') {
+            steps {
+                sh '''
+                    . venv/bin/activate
+                    python -m pytest test_app.py -v --tb=short
+                '''
+            }
+        }
 
         stage('Restart Flask app') {
             steps {

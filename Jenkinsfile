@@ -8,14 +8,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/jonathan-pp/devops-158-Pinto3-tp'
+                git branch: 'main', url: 'https://github.com/jonathan-pp/devops-158-Pinto3-tp.git'
             }
         }
 
         stage('Pull latest code') {
             steps {
                 dir('/root/devops-158-Pinto3-tp/') {
-                    git branch: 'main', url: 'https://github.com/jonathan-pp/devops-158-Pinto3-tp'
+                    git branch: 'main', url: 'https://github.com/jonathan-pp/devops-158-Pinto3-tp.git'
                 }
             }
         }
@@ -56,10 +56,10 @@ pipeline {
 
     post {
         success {
-            echo 'Deploiement automatique reussi ! BRAVO DAMN'
+            echo 'Déploiement automatique réussi ! BRAVO DAMN'
         }
         failure {
-            echo 'echec du pipeline. - AIE AIE AIE CA PUE'
+            echo 'Échec du pipeline. - AIE AIE AIE CA PUE'
         }
     }
-}éééééééé
+}

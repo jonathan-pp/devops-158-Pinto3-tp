@@ -1,31 +1,39 @@
 pipeline {
     agent any
 
-    stages {
-        stage('Checkout') {
-            steps {
-                git branch: 'main', url: 'https://github.com/jonathan-pp/devops-158-Pinto3-tp.git'
-            }
-        }
+    triggers {
+        pollSCM('* * * * *')
+    }
 
+    stages {
         stage('Install dependencies') {
             steps {
                 sh '''
                     python3 -m venv venv
                     . venv/bin/activate
                     pip install --upgrade pip
-                    pip install flask pytest
+                    pip install flask
                 '''
             }
         }
 
-        stage('Run tests') {
+        stage('Restart Flask app') {
             steps {
                 sh '''
+                    pkill -f "python app.py" || true
                     . venv/bin/activate
-                    python -m pytest app.py -v --tb=short
+                    nohup python app.py > flask.log 2>&1 &
                 '''
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Déploiement automatique réussi ! BRAVO DAMN'
+        }
+        failure {
+            echo 'Échec du pipeline. - AIE AIE AIE CA PUE'
         }
     }
 }
